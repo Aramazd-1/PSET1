@@ -5,15 +5,12 @@ library(ggplot2)
 library(TeachingDemos)
 #Import functions
 source("Functions.R")
-# ------------------------------------------------------------------------------
-# 2.1
-# ------------------------------------------------------------------------------
+# 2.2
 # Shape parameters for Gamma Distribution:
 alpha <- 2
 sigma <- 1
 support_lb <- 0
-#Load the data:
-data <- as.numeric(unlist(read.csv("gasolina_small_sample.csv")))
+data <- as.numeric(unlist(read.csv("gasolina_large_sample.csv")))
 
 # Expectations:
 expected_posterior_s <- posterior_mean(data)
@@ -24,7 +21,7 @@ credible_interval_10 <- credible_interval(0.1)
 
 alpha_posterior <- alpha + length(data) # \alpha + n
 beta_posterior <- sigma + sum(data) # \beta + \sum_{i=1}^{n} x_i
-posterior_b <- dgamma(seq(0, 8, length.out = 1000), shape = alpha_posterior, rate = beta_posterior)
+# posterior_b <- dgamma(seq(0, 8, length.out = 1000), shape = alpha_posterior, rate = beta_posterior)
 posterior_icdf <- function(p) qgamma(p, shape = alpha_posterior, rate = beta_posterior)
 
 # Compute the HPD interval at 95% confidence level
@@ -32,7 +29,11 @@ hpd_interval <- hpd(posterior_icdf, conf = 0.90, tol = 1e-8)
 cat("HPD Interval:", hpd_interval, "\n")
 cat("Credible Interval:", credible_interval_10, "\n")
 
-gasolina_small <- ggplot() + xlim(0, 8) +
+posterior_a <- plot_posterior(seq(0, 8, length.out = 1000)) # Sanity check
+posterior_b <- dgamma(seq(0, 8, length.out = 1000), shape = alpha_posterior, rate = beta_posterior)
+
+
+gasolina_large <- ggplot() + xlim(0, 8) +
   geom_function(fun = plot_posterior,
                 aes(colour = "Posterior")) +
   geom_function(fun = prior,
@@ -63,9 +64,6 @@ gasolina_small <- ggplot() + xlim(0, 8) +
         legend.position = c(0.1, 0.8),
         panel.background = element_rect(fill = 'transparent'),
         legend.background = element_rect(fill = 'transparent'))
+ggsave("gasolina_large_plot.png", plot = gasolina_large, width = 8, height = 6, dpi = 300)
 
-ggsave("gasolina_small_plot.png", plot = gasolina_small, width = 8, height = 6, dpi = 300)
-
-print(gasolina_small)
-
-
+print(gasolina_large)
