@@ -32,10 +32,9 @@ cat("Credible Interval:", credible_interval_10, "\n")
 posterior_a <- plot_posterior(seq(0, 8, length.out = 1000)) # Sanity check
 posterior_b <- dgamma(seq(0, 8, length.out = 1000), shape = alpha_posterior, rate = beta_posterior)
 
-
 gasolina_large <- ggplot() + xlim(0, 8) +
-  geom_function(fun = plot_posterior,
-                aes(colour = "Posterior")) +
+   geom_function(fun = plot_posterior,
+                 aes(colour = "Posterior"))+
   geom_function(fun = prior,
                 aes(colour = "Prior")) +
   geom_vline(aes(colour = "Posterior Expected",
@@ -64,6 +63,7 @@ gasolina_large <- ggplot() + xlim(0, 8) +
         legend.position = c(0.1, 0.8),
         panel.background = element_rect(fill = 'transparent'),
         legend.background = element_rect(fill = 'transparent'))
+
 ggsave("gasolina_large_plot.png", plot = gasolina_large, width = 8, height = 6, dpi = 300)
 
 print(gasolina_large)

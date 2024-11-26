@@ -6,7 +6,7 @@
 
 #Clean the workspace:
 rm(list = ls())  
-
+setwd(here::here())
 #Set your working directory:
 
 
@@ -148,6 +148,7 @@ data <- as.numeric(unlist(read.csv("example_bayes_large.csv")))
 expected_posterior_l <- posterior_mean(data)
 prior_m <- function(theta){theta*prior(theta)}
 expected_prior <- integrate(prior_m,support_lb,Inf)[[1]]
+posterior_a <- plot_posterior(seq(0, 8, length.out = 1000)) # Sanity check
 
 exponential_larger <- ggplot() + xlim(0, 8) + 
   geom_function(fun = plot_posterior, 
