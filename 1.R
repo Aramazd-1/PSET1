@@ -72,15 +72,15 @@ SE_ATE_hat <- sqrt(Var_ATE_hat)
 
 # 95% confidence interval
 alpha_95 <- 0.05
-z_alpha_95 <- qnorm(1 - alpha_95 / 2)
-CI_lower_95 <- ATE_hat - z_alpha_95 * SE_ATE_hat
-CI_upper_95 <- ATE_hat + z_alpha_95 * SE_ATE_hat
+t_alpha_95 <- qt(1 - alpha_95 / 2, df = 9)
+CI_lower_95 <- ATE_hat - t_alpha_95 * SE_ATE_hat
+CI_upper_95 <- ATE_hat + t_alpha_95 * SE_ATE_hat
 
 # 99% confidence interval
 alpha_99 <- 0.01
-z_alpha_99 <- qnorm(1 - alpha_99 / 2)
-CI_lower_99 <- ATE_hat - z_alpha_99 * SE_ATE_hat
-CI_upper_99 <- ATE_hat + z_alpha_99 * SE_ATE_hat
+t_alpha_99 <- qt(1 - alpha_99/2, df = 9)
+CI_lower_99 <- ATE_hat - t_alpha_99 * SE_ATE_hat
+CI_upper_99 <- ATE_hat + t_alpha_99 * SE_ATE_hat
 
 # Output the results
 cat("Estimated ATE:", ATE_hat, "\n")
