@@ -41,9 +41,9 @@ gasolina_large <- ggplot() + xlim(0, 8) +
                  xintercept = expected_posterior_s), linetype = 2 ) + # Posterior Expected
   geom_vline(aes(colour = "Prior Expected",
                  xintercept = expected_prior), linetype = 2) +        # Prior Expected
-  geom_vline(aes(colour = "Credible Interval",
+  geom_vline(aes(colour = "Equal Tail Credible Interval",
                  xintercept = credible_interval_10[1]), linetype = 1) +
-  geom_vline(aes(colour = "Credible Interval",
+  geom_vline(aes(colour = "Equal Tail Credible Interval",
                  xintercept = credible_interval_10[2]), linetype = 1) +
   geom_vline(aes(colour = "HPD Interval",
                  xintercept = hpd_interval[1]), linetype = 1) +
@@ -53,7 +53,7 @@ gasolina_large <- ggplot() + xlim(0, 8) +
   scale_color_manual(values = c(
     "Posterior" = "dodgerblue4",
     "Prior" = "mediumseagreen",
-    "Credible Interval" = "purple",
+    "Equal Tail Credible Interval" = "purple",
     "HPD Interval" = "red",
     "Posterior Expected" = "blue",
     "Prior Expected" = "green"
